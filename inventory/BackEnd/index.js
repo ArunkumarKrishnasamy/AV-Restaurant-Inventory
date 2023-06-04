@@ -28,6 +28,16 @@ app.post("/inventory", async (req, res) => {
   }
 });
 
+app.get("/inventory", async (req, res) => {
+  try {
+    const products = await pool.query("SELECT * FROM inventory");
+    res.status(200).json(products.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error in getting data" });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log("Web server started");

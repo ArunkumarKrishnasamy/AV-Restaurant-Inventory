@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TableRows from "./TableRows";
 
 function Receipt_Form() {
   const [operations, setOperations] = useState(true);
@@ -19,6 +20,19 @@ function Receipt_Form() {
     setAdditionalInfo(false);
     setNotes(true);
   };
+  const [rowsData, setRowsData] = useState([]);
+  const AddNewPoduct = () => {
+    const rowsInput = { Product_Name: "", Demand: "" };
+    setRowsData([...rowsData, rowsInput]);
+    console.log("new row added");
+  };
+  const HandleChange = (index, event) => {
+    const { name, value } = event.target;
+    const rowsInput = [...rowsData];
+    rowsInput[index][name] = value;
+    setRowsData(rowsInput);
+  };
+
   return (
     <div className="container form">
       <div className="row">
@@ -99,11 +113,13 @@ function Receipt_Form() {
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th className="col-4" scope="col">
+                  <th className="col-1" scope="col">
+                    #
+                  </th>
+                  <th className="col-5" scope="col">
                     Product Name
                   </th>
-                  <th className="col-4" scope="col">
+                  <th className="col-5" scope="col">
                     Demand
                   </th>
                   <th scope="col">
@@ -117,7 +133,12 @@ function Receipt_Form() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="text-primary" style={{ cursor: "pointer" }}>
+                <TableRows HandleChange={HandleChange} rowsData={rowsData} />
+                <tr
+                  className="text-primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={AddNewPoduct}
+                >
                   Add New
                 </tr>
               </tbody>
