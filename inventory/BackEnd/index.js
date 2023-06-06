@@ -37,6 +37,16 @@ app.get("/inventory", async (req, res) => {
     res.status(500).json({ message: "Error in getting data" });
   }
 });
+app.delete("/inventory/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const Delete = await pool.query("DELETE FROM inventory WHERE id=$1", [id]);
+    res.status(200).json({ message: "Item Deleted" });
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ message: "Error occurred while deleting it" });
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -22,16 +22,17 @@ function Receipt_Form() {
   };
   const [rowsData, setRowsData] = useState([]);
   const AddNewPoduct = () => {
-    const rowsInput = { Product_Name: "", Demand: "" };
+    const rowsInput = { product_name: "", demand: "" };
     setRowsData([...rowsData, rowsInput]);
+
     console.log("new row added");
   };
-  const HandleChange = (index, event) => {
-    const { name, value } = event.target;
-    const rowsInput = [...rowsData];
-    rowsInput[index][name] = value;
-    setRowsData(rowsInput);
-  };
+  // const HandleChange = (index, event) => {
+  //   const { name, value } = event.target;
+  //   const rowsInput = [...rowsData];
+  //   rowsInput[index][name] = value;
+  //   setRowsData(rowsInput);
+  // };
 
   return (
     <div className="container form">
@@ -119,7 +120,7 @@ function Receipt_Form() {
                   <th className="col-5" scope="col">
                     Product Name
                   </th>
-                  <th className="col-5" scope="col">
+                  <th className="col-2" scope="col">
                     Demand
                   </th>
                   <th scope="col">
@@ -133,7 +134,7 @@ function Receipt_Form() {
                 </tr>
               </thead>
               <tbody>
-                <TableRows HandleChange={HandleChange} rowsData={rowsData} />
+                <TableRows rowsData={rowsData} />
                 <tr
                   className="text-primary"
                   style={{ cursor: "pointer" }}
